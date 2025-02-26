@@ -26,7 +26,7 @@ def create_random_word_file(timer, output_path):
         
         print(f"Created file: {file_path} with word: {random_word}")
 
-timer = 1.0
+timer = 10.0
 output_path = "./data/"
 
 create_random_word_file(timer, output_path)
