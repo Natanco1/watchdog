@@ -19,14 +19,14 @@ def create_random_word_file(timer, output_path):
         
         random_word = generate_random_word()
         
-        file_path = os.path.join(output_path, f"{timestamp}.txt")
+        file_path = os.path.join(output_path, f"test.{timestamp}.txt")
         
         with open(file_path, 'w') as file:
             file.write(random_word)
         
         print(f"Created file: {file_path} with word: {random_word}")
 
-timer = 10.0
+timer = 1.0
 output_path = "./data/"
 
 create_random_word_file(timer, output_path)

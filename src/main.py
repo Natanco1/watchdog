@@ -29,9 +29,10 @@ def monitor_and_chunk(input_path, output_path, threshold, chunk, expiration_seco
             
             if len(expired_files) >= threshold:
                 chunk_files = expired_files[:chunk]
-                first_file = chunk_files[0]
-                last_file = chunk_files[-1]
-                archive_name = f"{first_file.split('.')[0]}_{last_file.split('.')[0]}.7z"
+                
+                base_names = [".".join(f.split(".")[:-1]) for f in chunk_files]
+                folder_name = base_names[0] if base_names else "chunk"
+                archive_name = f"{folder_name}.7z"
                 archive_path = os.path.join(output_path, archive_name)
                 
                 with py7zr.SevenZipFile(archive_path, 'w') as archive:
@@ -51,9 +52,9 @@ def monitor_and_chunk(input_path, output_path, threshold, chunk, expiration_seco
         time.sleep(1)
 
 input_path = "./data"
-threshold = 100
-chunk = 100
+threshold = 5
+chunk = 5
 output_path = "./compressed"
-expiration_seconds = 60 
+expiration_seconds = 10
 
 monitor_and_chunk(input_path, output_path, threshold, chunk, expiration_seconds)
