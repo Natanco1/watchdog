@@ -30,8 +30,9 @@ def monitor_and_chunk(input_path, output_path, threshold, chunk, expiration_seco
             if len(expired_files) >= threshold:
                 chunk_files = expired_files[:chunk]
                 
-                base_names = [".".join(f.split(".")[:-1]) for f in chunk_files]
-                folder_name = base_names[0] if base_names else "chunk"
+                first_file_base = "".join(chunk_files[0].rsplit(".", 1)[:-1])
+                last_file_base = "".join(chunk_files[-1].rsplit(".", 1)[:-1])
+                folder_name = f"{first_file_base}_{last_file_base}"
                 archive_name = f"{folder_name}.7z"
                 archive_path = os.path.join(output_path, archive_name)
                 
